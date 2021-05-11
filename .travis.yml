@@ -37,5 +37,3 @@ after_success:
   - julia -e 'if Sys.islinux()
       using Pkg: Pkg_add("Coverage"); using Coverage; Coveralls.submit(Coveralss.process_folder())
       end'
-codecov: true
-coveralls: true
