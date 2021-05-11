@@ -1,0 +1,41 @@
+language: julia
+
+os:
+  - linux
+  - osx 
+  #- windows
+
+julia:
+  - nightly
+  - 1.0
+  - 1.5.2
+
+notifications: 
+  email:
+    recipients: max@ufg.br
+    on_sucess: never
+    on_failure: change
+
+branches:
+  only: 
+    - master #main 
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ #tags
+
+jobs: 
+  allow_failures: 
+    - julia: nightly
+    #include:
+    #  - stage: "Documentation"
+    #    julia: 1
+    #    os: osx 
+    #    script: 
+    #      - julia --project=docs/ -e 'using Pkg: Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+    #      - julia --project=docs/ docs/make.jl 
+    #    after_success: skip
+
+after_success: 
+  - julia -e 'if Sys.islinux()
+      using Pkg: Pkg_add("Coverage"); using Coverage; Coveralls.submit(Coveralss.process_folder())
+      end'
+codecov: true
+coveralls: true
