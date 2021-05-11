@@ -13,7 +13,7 @@ julia:
 notifications:
   email:
     recipients: max@ufg.br
-    on_sucess: never
+    on_success: never
     on_failure: change
 
 branches:
